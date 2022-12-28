@@ -29,6 +29,7 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.parametrs = Config()
         self.parametrs.DownloadSettings()
         
+        self.lastData = []
         self.currentData = []
         self.m = PlotCanvas(self.frameForMatplotLib)
         
@@ -40,13 +41,13 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.m.move(500,0)
         self.toolbar = NavigationToolbar2QT(self.m, self.frameForMatplotLib)
         self.toolbar.move(510,10)
-        
-        
         self.m.draw()
     
     
     def initUI(self):
         self.printPlot()
+        
+        self.openFile.triggered.connect(lambda : self.openFileNameDialog())
         
         self.testButton1.clicked.connect(lambda : self.writeCurrentData(self.model.linerGraph()))
         self.testButton2.clicked.connect(lambda : self.writeCurrentData(self.model.exponentaGraph()))
@@ -57,7 +58,20 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.printPlot(data = self.currentData)
 
 
-
+    def openFileNameDialog(self):
+        options = QtWidgets.QFileDialog.Options()
+        options |= QtWidgets.QFileDialog.DontUseNativeDialog
+        fileName, _ = QtWidgets.QFileDialog.getOpenFileName(
+            self,
+            "QFileDialog.getOpenFileName()", 
+            "",
+            "All Files (*);;Python Files (*.py)", 
+            options=options
+        )
+        if fileName:
+            print(fileName)
+        
+        
 # from tkinter import *
 # from tkinter import ttk
 # from tkinter import filedialog as fd 
