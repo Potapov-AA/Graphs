@@ -43,7 +43,7 @@
         <property name="frameShadow">
          <enum>QFrame::Raised</enum>
         </property>
-        <widget class="QWidget" name="horizontalLayoutWidget_2">
+        <widget class="QWidget" name="gridLayoutWidget">
          <property name="geometry">
           <rect>
            <x>0</x>
@@ -52,18 +52,18 @@
            <height>661</height>
           </rect>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="0" column="0">
            <widget class="QPushButton" name="testButton1">
             <property name="text">
-             <string>PushButton</string>
+             <string>testButton1</string>
             </property>
            </widget>
           </item>
-          <item>
+          <item row="0" column="1">
            <widget class="QPushButton" name="testButton2">
             <property name="text">
-             <string>PushButton</string>
+             <string>testButton2</string>
             </property>
            </widget>
           </item>
@@ -75,7 +75,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
+  <widget class="QMenuBar" name="menuBarFile">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -84,7 +84,44 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="fileMenu">
+    <property name="title">
+     <string>Файл</string>
+    </property>
+    <addaction name="openFile"/>
+    <addaction name="saveFile"/>
+    <addaction name="separator"/>
+    <addaction name="exit"/>
+   </widget>
+   <widget class="QMenu" name="settingMenu">
+    <property name="title">
+     <string>Настройки</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="helpMenu">
+    <property name="title">
+     <string>Помощь</string>
+    </property>
+   </widget>
+   <addaction name="fileMenu"/>
+   <addaction name="settingMenu"/>
+   <addaction name="helpMenu"/>
   </widget>
+  <action name="openFile">
+   <property name="text">
+    <string>Открыть файл</string>
+   </property>
+  </action>
+  <action name="saveFile">
+   <property name="text">
+    <string>Сохранить файл</string>
+   </property>
+  </action>
+  <action name="exit">
+   <property name="text">
+    <string>Выход</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
