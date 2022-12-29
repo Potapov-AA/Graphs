@@ -8,6 +8,7 @@ import design
 
 from model import Model
 from config import Config
+from inout import InOut
 
 class PlotCanvas(FigureCanvasQTAgg):
     def __init__(self, parent=None, width=7, height=7, dpi=100):
@@ -28,8 +29,11 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.model = Model()
         self.parametrs = Config()
         self.parametrs.DownloadSettings()
+        self.inout = InOut()
         
         self.lastData = []
+        self.last10Data = [None for i in range(10)]
+        
         self.currentData = []
         self.m = PlotCanvas(self.frameForMatplotLib)
         
@@ -61,15 +65,15 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
     def openFileNameDialog(self):
         options = QtWidgets.QFileDialog.Options()
         options |= QtWidgets.QFileDialog.DontUseNativeDialog
-        fileName, _ = QtWidgets.QFileDialog.getOpenFileName(
+        path, _ = QtWidgets.QFileDialog.getOpenFileName(
             self,
             "QFileDialog.getOpenFileName()", 
             "",
-            "All Files (*);;Python Files (*.py)", 
+            "WAV(*.wav);;DAT(*.dat)", 
             options=options
         )
-        if fileName:
-            print(fileName)
+        if path:
+            self.inout.readFile(path)
         
         
 # from tkinter import *
