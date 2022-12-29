@@ -6,7 +6,24 @@ from struct import *
 class InOut():
     def __init__(self): pass
     
-    def readBinaryFile(self, path):
+    def readFile(self, path):
+        expansion = path.split('.')[-1]
+        name = path.split('/')[-1]
+        data = object
+        
+        result = dict()
+        
+        if expansion == "dat":
+            data = self.__readBinaryFile(path)
+        elif expansion == "wav":
+            data = self.__readSoundFile(path)
+        
+        result["name"] = name
+        result["data"] = data
+        
+        return result
+    
+    def __readBinaryFile(self, path):
         data = []
         with open(path, 'rb') as f:
             number = f.read(4)
@@ -20,13 +37,7 @@ class InOut():
         data = np.asarray(data)
         return data
     
-    def saveBinaryFile(self, name, data):
-        with open(name, 'wb') as f:
-            for number in data:
-                tempValue = pack("<f", number)
-                f.write(tempValue) 
-    
-    def readSoundFile(self, path):
+    def __readSoundFile(self, path):
         result = dict()
         data = object
         with wave.open(path, 'rb') as f:
@@ -48,6 +59,13 @@ class InOut():
         result["data"] = data
         
         return result
+    
+    
+    def saveBinaryFile(self, name, data):
+        with open(name, 'wb') as f:
+            for number in data:
+                tempValue = pack("<f", number)
+                f.write(tempValue) 
     
     def saveSoundFile(self, name, data):
         with wave.open(name, 'wb') as f:
